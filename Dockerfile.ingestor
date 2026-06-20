@@ -1,0 +1,20 @@
+FROM python:3.12-slim
+
+#  System dependencies 
+RUN apt-get update && apt-get install --no-install-recommends -y \
+        gcc \
+        libgdal-dev \
+        libpq-dev && \
+    rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+#  Python dependencies 
+COPY requirements-ingestor.txt .
+RUN pip install --no-cache-dir -r requirements-ingestor.txt
+
+# Application files 
+COPY db/ ./db/
+COPY data/ ./data/
+
+CMD ["python", "db/ingest_protected_area_data.py"]

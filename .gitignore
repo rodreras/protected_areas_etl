@@ -1,0 +1,8 @@
+.claude
+.vscode
+.venv
+logs
+airflow
+*.csv
+*.png
+DOCKER.md
